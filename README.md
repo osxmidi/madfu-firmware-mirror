@@ -76,7 +76,8 @@ The udev rules cause the firmware to be automatically loaded when the
 device is connected to the computer.
 
 ```
-The M-Audio Transit (and also older Edirol devices like the UA-EX1 and UA-4FX etc with advanced mode) can't do 96000hz duplex, so only record or playback can be chosen at any one time.
+The M-Audio Transit (and also older Edirol devices like the UA-EX1 and UA-4FX etc with advanced mode) 
+can't handle 96000hz duplex, so only record or playback can be chosen at any one time.
 
 Assuming the M-Audio Transit is hw:1 (cat /proc/asound/cards)
 
