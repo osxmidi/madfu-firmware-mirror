@@ -37,13 +37,13 @@ Prerequisites
 Installing
 ----------
 
-obtaining udev version info has changed since the configure script was written so to get around it edit configure
+```
+Obtaining the udev version info has changed since the configure script was written so to get around it edit the configure file
 and change (line 2811) 
 
 udev_ver=`udevinfo -V | awk '{ print $3 }'`
 
 to 
-,,,
 
 udev_ver=`udevadm info --v`
 
@@ -55,7 +55,7 @@ or
 
 udev_ver=$(udevadm --version)
 
-,,,
+```
 
 1) Run './configure'.
 
@@ -75,6 +75,44 @@ Running
 The udev rules cause the firmware to be automatically loaded when the
 device is connected to the computer.
 
+```
+The M-Audio Transit (and also older Edirol devices like the UA-EX1 and UA-4FX etc with advanced mode) can't do 96000hz duplex, so only record or playback can be chosen at any one time.
+
+Assuming the M-Audio Transit is hw:1 (cat /proc/asound/cards)
+
+jackd --realtime -d alsa -P -d hw:1 -p256 -n2 -r96000 // playback
+
+jackd --realtime -d alsa -C -d hw:1 -p256 -n2 -r96000 // record
+
+and the M-Audio Transit needs a ~/.asoundrc file containing
+
+pcm.!default
+{
+type plug
+slave sl3
+}
+
+ctl.!default
+{
+type hw
+card 1
+}
+
+pcm_slave.sl3
+{
+pcm "hw:1,0"
+format S24_3LE
+channels 2
+rate 96000
+}
+
+pcm.96000
+{
+type plug
+slave sl3
+}
+
+```
 
 Contact
 -------
