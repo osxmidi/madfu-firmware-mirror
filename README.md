@@ -37,26 +37,6 @@ Prerequisites
 Installing
 ----------
 
-```
-Obtaining the udev version info has changed since the configure script was written, 
-so to get around it edit the configure file and change (line 2811) 
-
-udev_ver=`udevinfo -V | awk '{ print $3 }'`
-
-to 
-
-udev_ver=`udevadm info --v`
-
-or
-
-udev_ver=154
-
-or
-
-udev_ver=$(udevadm --version)
-
-```
-
 1) Run './configure'.
 
 2) Run 'make'.
